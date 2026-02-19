@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>INK & NEEDLE | Permanent Artistry</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px; /* This prevents the header from covering the section title */
+    }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gold: #C5A560;
+      --gray: #1a1a1a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 1px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .cta {
+      display: inline-block; /* Allows padding and width to work */
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ================= HEADER ================= */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    nav a {
+      margin: 0 18px;
+      font-size: 14px;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .cta {
+      background: var(--gold);
+      color: black;
+      padding: 10px 20px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Hamburger Styles */
+    .menu-button {
+      display: none; /* Hidden on desktop */
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      z-index: 1002;
+      padding: 10px;
+    }
+
+    .menu-button span {
+      display: block;
+      width: 28px;
+      height: 2px;
+      background: var(--gold);
+      transition: 0.3s;
+    }
+
+    /* Mobile Nav Overlay */
+    .mobile-nav {
+      position: fixed;
+      top: 0;
+      right: -100%; /* Hidden by default */
+      width: 80%;
+      height: 100vh;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+      z-index: 1001;
+      border-left: 1px solid var(--gold);
+    }
+
+    .mobile-nav a {
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    /* The Magic: When checkbox is checked, move the menu and animate the icon */
+    #menu-toggle:checked ~ .mobile-nav {
+      right: 0;
+    }
+
+    #menu-toggle:checked ~ .menu-button span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+
+    #menu-toggle:checked ~ .menu-button span:nth-child(2) {
+      opacity: 0;
+    }
+
+    #menu-toggle:checked ~ .menu-button span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .header-divider {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        #C5A560,
+        transparent
+      );
+    }
+
+    /* ================= HERO ================= */
+    .hero {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slides img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 1;
+      animation: none;
+    }
+
+    .slides img:nth-child(1) { animation-delay: 0s; }
+    .slides img:nth-child(2) { animation-delay: 6s; }
+    .slides img:nth-child(3) { animation-delay: 12s; }
+
+    @keyframes slideShow {
+      0% { opacity: 0; }
+      10% { opacity: 1; }
+      30% { opacity: 1; }
+      40% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .hero span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      max-width: 700px;
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    .hero .cta {
+      font-size: 14px;
+    }
+
+    /* ================= TRUST STRIP ================= */
+    .trust {
+      position: relative;
+      background: var(--gray);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      padding: 40px 20px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .trust::before,
+    .trust::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        var(--gold),
+        transparent
+      );
+      opacity: 0.7;
+    }
+
+    .trust::before {
+      top: 0;
+    }
+
+    .trust::after {
+      bottom: 0;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      white-space: nowrap;
+    }
+
+    .trust-icon {
+      color: var(--gold);
+      font-size: 14px;
+    }
+
+    .trust-text {
+      opacity: 0.9;
+    }
+
+    .trust-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--gold);
+      opacity: 0.6;
+    }
+
+    /* ================= SERVICES ================= */
+    .services {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      min-height: 80vh;
+    }
+
+    .services::before {
+      content: "";
+      position: absolute;
+      top: 8%;
+      bottom: 8%;
+      left: 50%;
+      width: 2px; /* optical hairline */
+      background: var(--gold);
+      z-index: 2;
+
+      /* optical separation */
+      box-shadow:
+        0 0 0 1px rgba(0,0,0,0.6),
+        0 0 8px rgba(0,0,0,0.8);
+    }
+
+    .service {
+      position: relative;
+    }
+
+    .service img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .service-content {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.65),
+        rgba(0,0,0,0.35)
+      );
+      padding: 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 3;
+    }
+
+    .service-content::before {
+      content: "";
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 30px;
+    }
+
+    .service h2 {
+      font-size: 34px;
+      margin-bottom: 18px;
+      max-width: 420px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    }
+
+    .service p {
+      max-width: 380px;
+      opacity: 0.9;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    }
+
+    .service-content .cta-link {
+      margin-top: 25px;
+      width: fit-content;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 12px 26px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .service-content .cta-link:hover {
+      background: var(--gold);
+      color: black;
+    }
+
+    /* ================= PORTFOLIO ================= */
+    .portfolio {
+      padding: 80px 0;
+      overflow-x: hidden;
+    }
+
+    .portfolio h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      color: var(--gold);
+    }
+
+    .carousel {
+      display: flex;
+      gap: 20px;
+      animation: scroll 40s linear infinite;
+    }
+
+    .carousel img {
+      height: 350px;
+      width: auto;
+      object-fit: cover;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ================= STUDIO ================= */
+    .studio {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      background: var(--gray);
+    }
+
+    .studio img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .studio-content {
+      padding: 80px;
+    }
+
+    .studio-content h2::after {
+      content: "";
+      display: block;
+      width: 70px;
+      height: 1px;
+      background: var(--gold);
+      margin: 20px 0 25px;
+    }
+
+    .studio ul {
+      margin-top: 20px;
+      list-style: none;
+    }
+
+    .studio li::before {
+      content: "✓";
+      color: var(--gold);
+      margin-right: 10px;
+    }
+
+    .studio-note {
+      margin-top: 25px;
+      max-width: 500px;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    /* ================= ARTISTS ================= */
+    .artists {
+      padding: 100px 80px;
+      text-align: center;
+      background: #000;
+    }
+
+    .artists h2 {
+      font-size: 36px;
+      letter-spacing: 2px;
+    }
+
+    .artists-intro {
+      max-width: 600px;
+      margin: 20px auto 0;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    .artist-grid {
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .artist {
+      text-align: center;
+    }
+
+    .artist img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: filter 0.4s ease;
+    }
+
+    .artist h4 {
+      margin-top: 18px;
+      font-size: 16px;
+      letter-spacing: 1px;
+    }
+
+    .artist h4::after {
+      content: "";
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+      margin: 10px auto 0;
+      opacity: 0.8;
+    }
+
+    .artist span {
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      letter-spacing: 1px;
+      opacity: 0.7;
+    }
+
+    /* Hover interaction */
+    .artist:hover img {
+      filter: grayscale(0%);
+    }
+
+    /* ================= CTA ================= */
+    .final-cta {
+      position: relative;
+      background: url("images/cover.jpg") center / cover no-repeat;
+      padding: 160px 40px;
+      text-align: center;
+    }
+
+    /* Dark overlay for contrast */
+    .final-cta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 1;
+    }
+
+    .final-cta h2,
+    .final-cta button {
+      position: relative;
+      z-index: 2;
+    }
+
+    .final-cta h2 {
+      color: var(--gold);
+      font-size: 42px;
+      letter-spacing: 2px;
+      margin-bottom: 40px;
+      text-transform: uppercase;
+    }
+
+    .final-cta h2::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 1px;
+      background: var(--gold);
+      margin: 30px auto 0;
+    }
+
+    /* ================= Contact ================= */
+    .contact-section {
+      padding: 100px 60px;
+      background: #050505;
+    }
+
+    .contact-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 80px;
+    }
+
+    .form-wrapper h2 {
+      color: var(--gold);
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .form-wrapper p {
+      margin-bottom: 30px;
+      opacity: 0.7;
+    }
+
+    #contactForm {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .input-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    #contactForm input, #contactForm textarea {
+      background: var(--gray);
+      border: 1px solid #333;
+      padding: 15px;
+      color: white;
+      font-family: inherit;
+      transition: 0.3s;
+    }
+
+    #contactForm input:focus, #contactForm textarea:focus {
+      border-color: var(--gold);
+      outline: none;
+    }
+
+    /* Action Buttons */
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px;
+      background: var(--gray);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .action-btn:hover {
+      background: var(--gold);
+      color: black;
+    }
+
+    .main-footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid #222;
+    }
+
+    .footer-divider {
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(
+        to right,
+        transparent,
+        #C5A560,
+        transparent
+      );
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      background: black;
+      padding: 80px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      align-items: center;
+      font-size: 14px;
+      gap: 30px;
+    }
+
+    footer h4 {
+      margin-bottom: 15px;
+      color: var(--gold);
+    }
+
+    footer a {
+      display: block;
+      margin-bottom: 8px;
+      opacity: 0.8;
+    }
+
+    .footer-logo-column {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .footer-logo-column img {
+      height: 110px;              /* Desktop size */
+      width: auto;       /* Non-interactive */
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .desktop-nav, .desktop-cta {
+        display: none; /* Hide standard nav and button */
+      }
+  
+      .menu-button {
+        display: flex; /* Show hamburger */
+      }
+
+      .contact-container { grid-template-columns: 1fr; gap: 50px; }
+      .contact-section { padding: 60px 20px; }
+      .input-group { grid-template-columns: 1fr; }
+    }
+
+    /* ================= TABLET OPTIMIZATIONS (768px to 1024px) ================= */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      /* Header adjustments */
+      header {
+        padding: 20px 30px;
+      }
+  
+      nav a {
+        margin: 0 10px;
+        font-size: 12px;
+      }
+
+      /* Hero adjustments */
+      .hero h1 {
+        font-size: 38px;
+        padding: 0 20px;
+      }
+
+      /* Services & Studio Grids - Keep them side-by-side but reduce padding */
+      .service-content {
+        padding: 40px;
+      }
+
+      .studio-content {
+        padding: 40px;
+      }
+
+      /* Trust Strip - Keep it horizontal but allow wrapping if needed */
+      .trust {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+  
+      .trust-divider:last-of-type {
+        display: none; /* Hide last divider if it wraps weirdly */
+      }
+
+      /* Artist Grid - 2x2 layout is perfect for tablet */
+      .artist-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 40px;
+      }
+  
+      /* Footer */
+      footer {
+        grid-template-columns: repeat(4, 1fr);
+        padding: 60px 40px;
+      }
+    }
+
+    /* ================= ADJUSTING YOUR EXISTING 900px MEDIA QUERY ================= */
+    /* We change this to 767px so the "Mobile/Stacked" view only kicks in for phones */
+    @media(max-width: 767px) {
+      .trust {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .trust-divider {
+        width: 40px;
+        height: 1px;
+      }
+      .services, .studio {
+        grid-template-columns: 1fr;
+      }
+      .services::before {
+        display: none;
+      }
+      .artist-grid {
+        grid-template-columns: 1fr; /* Single column for mobile */
+      }
+      header {
+        padding: 20px;
+      }
+      nav {
+        display: none; /* Consider adding a hamburger menu later! */
+      }
+      footer {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .footer-logo-column {
+        justify-content: center;
+        margin-top: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">
+    <img src="images/logo3.png" alt="INK & NEEDLE Logo">
+  </div>
+
+  <nav class="desktop-nav">
+    <a href="#portfolio">Portfolio</a>
+    <a href="#artists">Artists</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <a href="#contact" class="cta desktop-cta" style="display:inline-block;">BOOK NOW</a>
+
+  <input type="checkbox" id="menu-toggle" hidden>
+  <label for="menu-toggle" class="menu-button">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <div class="mobile-nav">
+    <a href="#portfolio" onclick="document.getElementById('menu-toggle').checked = false">Portfolio</a>
+    <a href="#artists" onclick="document.getElementById('menu-toggle').checked = false">Artists</a>
+    <a href="#services" onclick="document.getElementById('menu-toggle').checked = false">Services</a>
+    <a href="#about" onclick="document.getElementById('menu-toggle').checked = false">About</a>
+    <a href="#contact" onclick="document.getElementById('menu-toggle').checked = false">Contact</a>
+    <a href="#contact" class="cta" style="margin-top: 20px;" onclick="document.getElementById('menu-toggle').checked = false">BOOK NOW</a>
+  </div>
+
+  <div class="header-divider"></div>
+</header>
+
+<section class="hero">
+  <div class="slides">
+    <img src="images/hero.jpg">
+  </div>
+  <div class="hero-content">
+    <h1>PERMANENT <span>ARTISTRY</span>. PRECISION <span>ADORNMENT</span>.</h1>
+    <p>The ultimate studio for bespoke tattoos and fine body jewelry, where every piece is crafted with purpose.</p>
+    <button class="cta">VIEW PORTFOLIO</button>
+  </div>
+</section>
+
+<section class="trust">
+  <div class="trust-item">
+    <span class="trust-icon">✦</span>
+    <span class="trust-text">Featured in Local Press</span>
+  </div>
+
+  <div class="trust-divider"></div>
+
+  <div class="trust-item">
+    <span class="trust-icon">★</span>
+    <span class="trust-text">4.9 Client Rating</span>
+  </div>
+
+  <div class="trust-divider"></div>
+
+  <div class="trust-item">
+    <span class="trust-icon">⦿</span>
+    <span class="trust-text">100% Sterile Environment</span>
+  </div>
+
+  <div class="trust-divider"></div>
+
+  <div class="trust-item">
+    <span class="trust-icon">✓</span>
+    <span class="trust-text">Licensed & Certified Artists</span>
+  </div>
+
+  <div class="trust-divider"></div>
+
+  <div class="trust-item">
+    <span class="trust-icon">◇</span>
+    <span class="trust-text">Premium Jewelry & Inks</span>
+  </div>
+</section>
+
+<section id="services" class="services">
+  <div class="service">
+    <img src="images/tatto-artist.jpg" alt="Tattoo Work" loading="lazy">
+    <div class="service-content">
+      <h2>Bespoke Ink & Fine Line Artistry</h2>
+      <p>Custom tattoos crafted by elite artists with timeless precision.</p>
+      <a href="#artists" class="cta-link" style="margin-top: 20px;">MEET OUR ARTISTS</a>
+    </div>
+  </div>
+  <div class="service">
+    <img src="images/piercing-artist.jpg" alt="Piercing Work" loading="lazy">
+    <div class="service-content">
+      <h2>Precision Piercing & Luxury Jewelry</h2>
+      <p>Advanced techniques with curated, high-end jewelry.</p>
+      <a href="#portfolio" class="cta-link">BROWSE JEWELRY</a>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio" class="portfolio">
+  <h2>RECENTLY ADORNED</h2>
+  <div class="carousel">
+    <img src="images/tattoo1.jpg" alt="Shoulder Tattoo" loading="lazy">
+    <img src="images/piercing2.jpg" alt="Nose Piercing" loading="lazy">
+    <img src="images/tattoo2.jpg" alt="Leg Tattoo" loading="lazy">
+    <img src="images/piercing3.jpg" alt="Lip Piercing" loading="lazy">
+    <img src="images/tattoo3.jpg" alt="Hand Tattoo" loading="lazy">
+    <img src="images/piercing4.jpg" alt="Ear Piercing" loading="lazy">
+    <img src="images/tattoo4.jpg" alt="Chest Tattoo" loading="lazy">
+    <img src="images/piercing1.jpg" alt="Belly Button Piercing" loading="lazy">
+  </div>
+</section>
+
+<section id="about" class="studio">
+  <img src="images/tools.jpg" alt="Tattoo and Piercing Equipment" loading="lazy">
+  <div class="studio-content">
+    <h2>THE INK & NEEDLE EXPERIENCE</h2>
+    <p>Designed for comfort, privacy, and uncompromising hygiene.</p>
+    <ul>
+      <li>Hospital-grade sterilization</li>
+      <li>Single-use needles</li>
+      <li>Licensed & certified professionals</li>
+    </ul>
+
+    <p class="studio-note">
+      From your first consultation to final aftercare, every detail of the experience is intentional.
+      We prioritize discretion, clear communication, and an unhurried process — so every client
+      feels confident, respected, and completely at ease.
+    </p>
+
+    <a href="#contact" class="cta">TOUR THE STUDIO</a>
+  </div>
+</section>
+
+<section id="artists" class="artists">
+  <h2>FEATURED ARTISTS</h2>
+  <p class="artists-intro">
+    A carefully selected collective of specialists, each mastering a distinct discipline.
+  </p>
+
+  <div class="artist-grid">
+    <div class="artist">
+      <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" alt="Avery - Fine Line Artist" loading="lazy">
+      <h4>Avery</h4>
+      <span>Fine Line</span>
+    </div>
+
+    <div class="artist">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" alt="Jax - Blackwork Artist" loading="lazy">
+      <h4>Jax</h4>
+      <span>Blackwork</span>
+    </div>
+
+    <div class="artist">
+      <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e" alt="Raven - Micro-Dermal Specialist" loading="lazy">
+      <h4>Raven</h4>
+      <span>Micro-Dermal</span>
+    </div>
+
+    <div class="artist">
+      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" alt="Lux - Ornamental Tattoo Artist" loading="lazy">
+      <h4>Lux</h4>
+      <span>Ornamental</span>
+    </div>
+  </div>
+</section>
+
+
+<section class="final-cta">
+  <h2>READY FOR YOUR NEXT MASTERPIECE?</h2>
+  <a href="#contact" class="cta" style="display:inline-block;">BOOK YOUR CONSULTATION TODAY</a>
+</section>
+
+<section id="contact" class="contact-section">
+  <div class="contact-container">
+    <div class="form-wrapper">
+      <h2>GET IN TOUCH</h2>
+      <p>Have a project in mind? Let’s discuss your next masterpiece.</p>
+      
+      <form id="contactForm">
+        <div class="input-group">
+          <input type="text" placeholder="Full Name" required>
+          <input type="email" placeholder="Email Address" required>
+        </div>
+        <textarea placeholder="Tell us about your idea (Tattoo style, size, placement...)" rows="5" required></textarea>
+        <button type="submit" class="cta">SEND MESSAGE</button>
+      </form>
+    </div>
+
+    <div class="social-actions">
+      <h3>QUICK CONNECT</h3>
+      <div class="action-grid">
+        <a href="tel:555-123-4567" class="action-btn">
+          <span>📞</span> Call Us
+        </a>
+        <a href="https://wa.me/5551234567" class="action-btn">
+          <span>💬</span> WhatsApp
+        </a>
+        <a href="#" class="action-btn">
+          <span></span> Instagram
+        </a>
+        <a href="#" class="action-btn">
+          <span></span> Facebook
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="footer-divider"></div>
+
+<footer>
+  <div>
+    <h4>Contact</h4>
+    <p>123 Ink Street<br>New York, NY</p>
+    <p>555-123-4567</p>
+    <p>info@inkandneedle.com</p>
+  </div>
+  <div>
+    <h4>Quick Links</h4>
+    <a href="#">Careers</a>
+    <a href="#">FAQ</a>
+    <a href="#">Privacy Policy</a>
+  </div>
+  <div>
+    <h4>Follow Us</h4>
+    <a href="#">Instagram</a>
+    <a href="#">Facebook</a>
+  </div>
+  <div class="footer-logo-column">
+    <img src="images/logo2.png" alt="INK & NEEDLE Logo" loading="lazy">
+  </div>
+</footer>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevents the form from actually sending
+    
+    alert(
+      "SHOWCASE ONLY\n\n" +
+      "This site is for showcase purposes only and the form has not been submitted.\n\n" +
+      "If you are interested in creating a similar website for your business, please visit www.weblab-studio.com or contact us directly at +385 976659002."
+    );
+  });
+</script>
+</body>
+</html>
